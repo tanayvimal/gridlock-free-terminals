@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!-- Gridlock-Free Terminals: single-file website. To add the hero photo, replace PHOTO_URL_HERE in the .hero CSS rule with an image link or a file name such as port.jpg. -->
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gridlock-Free Terminals</title>
+<style>
+:root{--bg:#f4f6f9;--card:#fff;--tx:#0b1f33;--mu:#5b6b7b;--ln:#d3dbe4;--navy:#0b1f33;--teal:#2bb5a0;--amb:#f2a900;--red:#c0392b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1827;--card:#112a43;--tx:#eef2f5;--mu:#9fb3c6;--ln:#24425f}}
+:root[data-theme="dark"]{--bg:#0a1827;--card:#112a43;--tx:#eef2f5;--mu:#9fb3c6;--ln:#24425f}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Arial,Helvetica,sans-serif;line-height:1.55}
+#pg{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:4px;width:0;background:var(--amb);z-index:9}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;background:var(--navy);display:flex;gap:4px;align-items:center;padding:14px 5vw;overflow-x:auto}
+nav b{color:#fff;margin-right:auto;white-space:nowrap}
+nav a,nav button{color:#c5d3df;text-decoration:none;font:14px Arial;padding:6px 10px;border-radius:8px;white-space:nowrap;background:none;border:0;cursor:pointer}
+nav a:hover,nav button:hover{background:#14304c;color:#fff}nav a.on{background:#14304c;color:var(--amb)}
+.hero{min-height:90vh;display:flex;flex-wrap:wrap;gap:40px;align-items:center;justify-content:space-between;padding:8vh 5vw;color:#f4f6f9;background:linear-gradient(90deg,rgba(11,31,51,.96) 35%,rgba(11,31,51,.6)),url(PHOTO_URL_HERE) center/cover, #0b1f33}
+.hero .t{max-width:700px}
+.tag{color:var(--teal);font-weight:700;letter-spacing:.08em;font-size:14px;text-transform:uppercase}
+h1{font-size:clamp(40px,7vw,80px);line-height:1.05;margin:12px 0}
+.sub{font-size:clamp(18px,2.2vw,26px);color:#c5d3df}
+.bar{width:120px;height:6px;background:var(--amb);border-radius:3px;margin:22px 0}
+.btn{display:inline-block;padding:14px 24px;border-radius:10px;font-weight:700;text-decoration:none;margin:6px 10px 6px 0;border:2px solid var(--teal);cursor:pointer;font-size:16px;font-family:Arial}
+.b1{background:var(--teal);color:#0b1f33}.b2{color:#f4f6f9;background:none}
+.hs{background:rgba(17,42,67,.92);border:1px solid #24425f;border-top:8px solid var(--amb);border-radius:16px;padding:30px;max-width:330px;color:#f4f6f9}
+.hs .n{font-size:84px;font-weight:700;color:var(--amb);line-height:1}.hs p{color:#c5d3df;margin:8px 0 0}
+section{padding:84px 5vw;max-width:1200px;margin:auto}
+h2{font-size:clamp(28px,4vw,44px);margin:6px 0 10px}
+.lead{color:var(--mu);max-width:760px;font-size:18px}
+.band{background:var(--navy);color:#f4f6f9;max-width:none;text-align:center}
+.band h2{max-width:900px;margin:10px auto}.band p{color:#c5d3df;max-width:700px;margin:0 auto}
+.g{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:28px}
+.c{background:var(--card);border:1px solid var(--ln);border-top:6px solid var(--teal);border-radius:14px;padding:24px}
+.c.a{border-top-color:var(--amb)}.c.r{border-top-color:var(--red)}
+.c h3{margin:0 0 8px;font-size:20px}.c p{margin:0;color:var(--mu)}.ic{font-size:30px;display:block;margin-bottom:6px}
+.big{font-size:44px;font-weight:700;color:var(--teal);line-height:1}
+.badge{display:inline-block;margin-top:12px;font-size:13px;padding:4px 10px;border-radius:20px;background:var(--bg);border:1px solid var(--ln);color:var(--tx);text-decoration:none}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}.rv.in{opacity:1;transform:none}
+.dia{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:16px;margin-top:24px;overflow-x:auto}
+.dia svg{min-width:640px;width:100%;height:auto}
+.z{cursor:pointer}.z rect{transition:fill .3s}.z:hover rect,.z.sel rect{fill:#14507a}
+.info{margin-top:14px;padding:14px 18px;border-radius:10px;background:var(--bg);border-left:8px solid var(--teal);min-height:70px}
+.ctl{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ctl button{padding:10px 18px;border-radius:8px;border:0;font-weight:700;cursor:pointer;font-size:15px}
+#brk{background:var(--red);color:#fff}#rst{background:var(--ln);color:var(--tx)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:28px}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+.stp{min-height:46vh;display:flex;flex-direction:column;justify-content:center;opacity:.35;transition:opacity .4s}.stp.on{opacity:1}
+.stp h3{font-size:28px;margin:0}.stp p{color:var(--mu);margin:6px 0 0}
+.sk{position:sticky;top:110px}
+.sk .c{border-top-color:var(--amb)}
+.chips{display:flex;gap:8px;margin-top:12px}.chips i{flex:1;height:14px;border-radius:7px;background:var(--ln);transition:background .4s}.chips i.on{background:var(--teal)}
+.chat{background:var(--navy);color:#f4f6f9;border-radius:14px;padding:22px;min-height:260px;font-size:17px;margin-top:24px}
+.chat p{margin:0 0 12px;animation:pop .4s}@keyframes pop{from{opacity:0;transform:translateY(8px)}}
+.note{border-left:8px solid var(--amb);background:var(--card);padding:18px 22px;border-radius:10px;margin-top:24px}
+.tl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;margin-top:30px;position:relative}
+.tl div{padding:0 18px 0 0;position:relative;border-top:4px solid var(--ln);padding-top:22px}
+.tl div:before{content:"";position:absolute;top:-10px;left:0;width:16px;height:16px;border-radius:50%;background:var(--teal)}
+.tl h3{margin:0}.tl p{color:var(--mu);margin:4px 0 0}
+.lg{font-size:14px;color:var(--mu);margin-top:16px}.lg b{display:inline-block;width:12px;height:12px;border-radius:50%;margin:0 4px 0 12px}
+.q{animation:pulse 2.4s infinite}@keyframes pulse{50%{opacity:.45}}
+footer{background:var(--navy);color:#9fb3c6;padding:40px 5vw;font-size:14px}
+footer a{color:var(--teal)}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.q,.chat p{animation:none}html{scroll-behavior:auto}}
+@media print{nav,#pg,.ctl,.hero .btn{display:none}.rv{opacity:1;transform:none}.hero{min-height:0;color:#000;background:none}.hero .sub,.hs p{color:#333}.band{background:none;color:#000}.stp{min-height:0;opacity:1}.sk{position:static}section{padding:20px 0}}
+</style></head><body>
+<div id="pg"></div>
+<nav><b>Gridlock-Free Terminals</b><a href="#problem">Problem</a><a href="#solution">Solution</a><a href="#safety">Safety</a><a href="#proof">Proof</a><a href="#demo">Demo</a><a href="#data">Data</a><a href="#pilot">Pilot</a><button id="th" aria-label="Toggle light or dark theme">◐ Theme</button><button id="pr">⎙ Print</button></nav>
+
+<header class="hero"><div class="t"><span class="tag">Domain 14 · Smarter Supply Chains</span><h1>Gridlock-Free Terminals</h1><p class="sub">A zone-based relay that keeps one local failure from stopping the port.</p><div class="bar"></div>
+<a class="btn b1" href="#solution">See how it works</a><a class="btn b2" href="#data">View the data</a></div>
+<div class="hs"><div class="n"><span data-n="20">0</span> min</div><p>Median truck queue before the gate: the delay this relay targets.</p><a class="badge" style="background:none;color:#c5d3df;border-color:#24425f" target="_blank" rel="noopener" href="https://www.pierpass.org/news/groundbreaking-study-provides-first-comprehensive-measurement-of-truck-queuing-and-visit-times-at-the-ports/">PierPass / DGRC, 2011 ↗</a></div></header>
+
+<section class="band"><span class="tag">The challenge</span><h2 class="rv">One trip. Four coupled systems. One blocked lane stalls them all.</h2><p class="rv">Quay, transfer, yard and gate depend on each other, so a single stopped unit queues upstream and idles cranes.</p></section>
+
+<section id="problem"><span class="tag">Problem</span><h2 class="rv">Two failures that spread</h2>
+<div class="g">
+<div class="c a rv"><span class="ic">🚧</span><h3>Failure 1 · stopped unit</h3><p>A transport unit stops in shared workspace and blocks the lane.</p></div>
+<div class="c a rv"><span class="ic">⚔️</span><h3>Failure 2 · double claim</h3><p>Two containers claim one transfer point at the same moment.</p></div>
+<div class="c rv"><span class="ic">👷</span><h3>Who it hits</h3><p>Terminal operators, crane and yard controllers, shuttle dispatchers.</p></div></div>
+<div class="g">
+<div class="c rv"><span class="ic">📡</span><h3>Data</h3><p>Vehicle position, container ID, crane state, buffer occupancy, reservation times.</p></div>
+<div class="c rv"><span class="ic">⚙️</span><h3>Automation</h3><p>A scheduler grants non-overlapping slots and triggers isolate-and-bypass.</p></div>
+<div class="c a rv"><span class="ic">🤖</span><h3>AI / Agent</h3><p>A dispatcher agent explains holds and proposes bypasses. A human approves.</p></div></div>
+<p class="lg"><b style="background:var(--teal)"></b>working / safe <b style="background:var(--amb)"></b>risk / needs approval <b style="background:var(--red)"></b>failure</p></section>
+
+<section id="solution"><span class="tag">Solution</span><h2 class="rv">Divide the journey, decouple it with buffers</h2>
+<p class="lead rv">A late downstream crane holds work at its own buffer, not across the terminal. Click a zone, then try to break it.</p>
+<div class="dia rv"><svg viewBox="0 0 900 290" role="img" aria-label="Interactive relay of four zones with buffers; a stopped unit is isolated and bypassed">
+<path id="pth" d="M20 100H880" stroke="none"/><path id="byp" d="M300 150Q332 245 364 150" fill="none" stroke="#2bb5a0" stroke-width="5" style="display:none"/>
+<g font-family="Arial" font-size="20" font-weight="700" text-anchor="middle" fill="#fff">
+<g class="z" data-z="0" tabindex="0"><rect x="0" y="50" width="190" height="100" rx="12" fill="#0b1f33"/><text x="95" y="107">QUAY</text></g>
+<g class="z" data-z="1" tabindex="0"><rect x="237" y="50" width="190" height="100" rx="12" fill="#0b1f33"/><text x="332" y="107">SHUTTLE</text></g>
+<g class="z" data-z="2" tabindex="0"><rect x="473" y="50" width="190" height="100" rx="12" fill="#0b1f33"/><text x="568" y="107">YARD</text></g>
+<g class="z" data-z="3" tabindex="0"><rect x="710" y="50" width="190" height="100" rx="12" fill="#0b1f33"/><text x="805" y="107">GATE / RAIL</text></g></g>
+<g fill="#f2a900"><rect class="q" x="198" y="82" width="31" height="36" rx="6"/><rect class="q" x="435" y="82" width="31" height="36" rx="6" style="animation-delay:.8s"/><rect class="q" x="671" y="82" width="31" height="36" rx="6" style="animation-delay:1.6s"/></g>
+<rect id="mv" width="22" height="22" rx="4" fill="#2bb5a0" y="-11"><animateMotion dur="7s" repeatCount="indefinite"><mpath href="#pth"/></animateMotion></rect>
+<g id="stp" style="display:none"><rect x="237" y="50" width="190" height="100" rx="12" fill="none" stroke="#c0392b" stroke-width="4" stroke-dasharray="10 7"/><rect x="316" y="84" width="32" height="32" rx="5" fill="#c0392b"/></g>
+<rect id="bm" width="22" height="22" rx="4" fill="#2bb5a0" y="-11" style="display:none"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#byp"/></animateMotion></rect>
+<g font-family="Arial" font-size="15" fill="#9fb3c6" text-anchor="middle"><text x="213" y="185">buffer</text><text x="450" y="185">buffer</text><text x="686" y="185">buffer</text></g>
+<text id="stt" x="450" y="275" font-family="Arial" font-size="20" font-weight="700" text-anchor="middle" fill="#2bb5a0">Flow normal</text></svg>
+<div class="info" id="info">Click a zone to see what it does and what its buffer protects.</div>
+<div class="ctl"><button id="brk">⚠ Break it: stop a unit</button><button id="rst">Reset</button></div></div></section>
+
+<section id="safety"><span class="tag">Control and safety</span><h2 class="rv">Central flow, local safety veto</h2>
+<div class="two"><div>
+<div class="stp" data-s="0"><h3>1 · Request</h3><p>The vehicle asks for a segment and a time window.</p></div>
+<div class="stp" data-s="1"><h3>2 · Reserve</h3><p>The scheduler grants a non-overlapping slot and holds every other entry.</p></div>
+<div class="stp" data-s="2"><h3>3 · Verify</h3><p>Sensors confirm the vehicle, the container and the destination.</p></div>
+<div class="stp" data-s="3"><h3>4 · Release</h3><p>The segment clears before another unit may enter.</p></div></div>
+<div class="sk"><div class="c a"><h3 id="sh">Request</h3><p id="sp">Who acts: the vehicle.</p><div class="chips"><i></i><i></i><i></i><i></i></div></div>
+<div class="note">During a lift the crane envelope stays closed. No software reservation overrides the physical safety state.</div></div></div>
+<div class="g"><div class="c r rv"><span class="ic">🛑</span><h3>Stopped unit</h3><p>Freeze, isolate, bypass, recover. Only the affected segment closes; nothing enters until clearance is verified.</p></div>
+<div class="c a rv"><span class="ic">🎟️</span><h3>Double claim</h3><p>One token, capacity 1. Tie-break: earliest reservation, priority, equipment ID, then timeout and re-plan.</p></div></div></section>
+
+<section id="proof"><span class="tag">Illustrative scenario</span><h2 class="rv">Today versus the relay</h2>
+<div class="two"><div class="c r rv"><h3>Today: queue spreads upstream</h3><p>One stopped unit holds every vehicle behind it, and crane work backs up.</p></div>
+<div class="c rv"><h3>With the relay: isolate and bypass</h3><p>Only one segment closes. Verified traffic reroutes on a bypass while the unit is recovered. Press "Break it" above to watch it.</p></div></div>
+<p class="lead">Schematic only: not measured data. The live demo below is scripted.</p></section>
+
+<section id="demo"><span class="tag">Live demo</span><h2 class="rv">Ask the terminal in plain language</h2>
+<p class="lead">A scripted illustration of the dispatcher agent. It explains, proposes and waits for a human to approve.</p><div class="chat" id="chat"></div></section>
+
+<section id="data"><span class="tag">Verified benchmarks</span><h2 class="rv">What published data says</h2>
+<div class="g">
+<div class="c rv"><div class="big"><span data-n="20">0</span> min</div><p>Median truck queue before the gate, Los Angeles and Long Beach.</p><a class="badge" target="_blank" rel="noopener" href="https://www.pierpass.org/news/groundbreaking-study-provides-first-comprehensive-measurement-of-truck-queuing-and-visit-times-at-the-ports/">PierPass / DGRC, 2011 ↗</a></div>
+<div class="c rv"><div class="big"><span data-n="51">0</span> min</div><p>Median total visit: 20 min queue plus 31 min in the terminal.</p><a class="badge" target="_blank" rel="noopener" href="https://www.pierpass.org/news/groundbreaking-study-provides-first-comprehensive-measurement-of-truck-queuing-and-visit-times-at-the-ports/">PierPass / DGRC, 2011 ↗</a></div>
+<div class="c a rv"><div class="big">~<span data-n="5">0</span>%</div><p>Transactions with trouble tickets, adding about an hour each.</p><a class="badge" target="_blank" rel="noopener" href="https://www.marinelink.com/news/initiative-operators350638">NCFRP 2011 via Marine Link ↗</a></div>
+<div class="c a rv"><div class="big"><span data-n="0.46" data-d="2">0</span></div><p>Crane moves per hour lost per extra delay minute (422 observations, Moroccan terminals).</p><a class="badge" target="_blank" rel="noopener" href="https://zenodo.org/records/17917271">Elkharmali, 2025 ↗</a></div></div>
+<div class="note rv"><b>Savings model.</b> 20 min median queue × 25% proposal target = 5 min saved per visit. Per 1,000 visits: 5,000 vehicle-minutes, about 83 hours.</div>
+<div class="note rv" style="border-left-color:var(--red)"><b>What this is not.</b> The 25% target is our own, to be tested in the pilot. Benchmarks are US and Moroccan analogues, not data from this terminal. The demo and diagrams are illustrative.</div></section>
+
+<section id="pilot"><span class="tag">Pilot plan</span><h2 class="rv">Pilot one boundary, measure before scaling</h2>
+<p class="lead">One quay-to-shuttle handoff in a controlled operating window.</p>
+<div class="tl rv"><div><h3>Weeks 1–4</h3><p>Install sensors and scheduler; integrate with the terminal system.</p></div><div><h3>Weeks 5–8</h3><p>Run the pilot and record the four metrics.</p></div><div><h3>Weeks 9–12</h3><p>Review results and apply the decision gate.</p></div></div>
+<div class="g"><div class="c rv"><span class="ic">⏱️</span><h3>Wait</h3><p>Average queued minutes per container.</p></div><div class="c rv"><span class="ic">🛡️</span><h3>Safety</h3><p>Unauthorized crane-envelope entries.</p></div><div class="c rv"><span class="ic">🏗️</span><h3>Flow</h3><p>Crane idle time and buffer occupancy.</p></div><div class="c rv"><span class="ic">🔧</span><h3>Recovery</h3><p>Minutes from isolation to reopening.</p></div></div>
+<div class="note rv"><b>Decision gate:</b> scale only if safety holds and measured waiting time improves. Payer: terminal operator. Costs: sensors, scheduler software, integration, training.</div></section>
+
+<footer><b style="color:#fff">Sources</b><br>Kress, Meiswinkel &amp; Pesch (2019), EJOR 279(3) · Zhuang et al. (2022), Comput. Oper. Res. 145 · Zhong et al. (2020), Comput. Ind. Eng. 142 · Zhang et al. (2021), Math. Probl. Eng. · ILO (2018), Safety and health in ports · PierPass / DGRC (2011) · NCFRP (2011) via Marine Link · Elkharmali (2025), Zenodo · Network Rail (2023), analogy only</footer>
+<script>
+var $=function(s){return document.querySelector(s)},$$=function(s){return document.querySelectorAll(s)};
+var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}})},{threshold:.15});$$(".rv").forEach(function(n){io.observe(n)});
+var co=new IntersectionObserver(function(e){e.forEach(function(x){if(!x.isIntersecting)return;co.unobserve(x.target);var t=+x.target.dataset.n,d=+(x.target.dataset.d||0),s=null;function f(ts){s=s||ts;var p=Math.min((ts-s)/1200,1);x.target.textContent=(t*p).toFixed(d);if(p<1)requestAnimationFrame(f)}requestAnimationFrame(f)})},{threshold:.6});$$("[data-n]").forEach(function(n){co.observe(n)});
+addEventListener("scroll",function(){var h=document.documentElement;$("#pg").style.width=(100*h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight))+"%"});
+var ni=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){$$("nav a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")=="#"+x.target.id)})}})},{rootMargin:"-45% 0px -50% 0px"});$$("section[id]").forEach(function(s){ni.observe(s)});
+$("#th").onclick=function(){var r=document.documentElement,d=r.dataset.theme?r.dataset.theme=="dark":matchMedia("(prefers-color-scheme:dark)").matches;r.dataset.theme=d?"light":"dark";try{localStorage.setItem("th",r.dataset.theme)}catch(e){}};
+try{var sv=localStorage.getItem("th");if(sv)document.documentElement.dataset.theme=sv}catch(e){}
+$("#pr").onclick=function(){try{window.print()}catch(e){}};
+var Z=[["Quay zone","Loads and unloads the vessel. Its buffer lets a crane keep working when the shuttle is late."],["Shuttle zone","A one-way transfer loop. Slots are reserved, so two units never claim the same point."],["Yard zone","Stacks and retrieves. A late yard crane holds work at its own buffer, not across the terminal."],["Gate / rail","The external interface where truck and train demand meets the terminal."]];
+$$(".z").forEach(function(g){function pick(){$$(".z").forEach(function(o){o.classList.remove("sel")});g.classList.add("sel");var z=Z[+g.dataset.z];$("#info").innerHTML="<b>"+z[0]+".</b> "+z[1]}g.onclick=pick;g.onkeydown=function(e){if(e.key=="Enter"||e.key==" "){e.preventDefault();pick()}}});
+var T=[],stt=$("#stt");function say(t,c){stt.textContent=t;stt.setAttribute("fill",c)}
+function rst(){T.forEach(clearTimeout);T=[];$("#mv").style.display="";$("#stp").style.display="none";$("#bm").style.display="none";$("#byp").style.display="none";say("Flow normal","#2bb5a0")}
+$("#rst").onclick=rst;
+$("#brk").onclick=function(){rst();$("#mv").style.display="none";$("#stp").style.display="";say("1 · Freeze: new entries stopped, upstream units held","#c0392b");
+T.push(setTimeout(function(){say("2 · Isolate: only the shuttle segment closes","#f2a900")},2000));
+T.push(setTimeout(function(){$("#byp").style.display="";$("#bm").style.display="";say("3 · Bypass: verified alternate route in use","#2bb5a0")},4000));
+T.push(setTimeout(function(){say("4 · Recover: tow, inspect, reopen after verified clearance","#2bb5a0")},8000));
+T.push(setTimeout(rst,13000))};
+var SH=[["Request","Who acts: the vehicle."],["Reserve","Who acts: the scheduler."],["Verify","Who acts: the sensors."],["Release","Who acts: the vehicle and scheduler."]];
+var so=new IntersectionObserver(function(e){e.forEach(function(x){if(!x.isIntersecting)return;var n=+x.target.dataset.s;$$(".stp").forEach(function(s,i){s.classList.toggle("on",i==n)});$("#sh").textContent=SH[n][0];$("#sp").textContent=SH[n][1];$$(".chips i").forEach(function(c,i){c.classList.toggle("on",i<=n)})})},{rootMargin:"-40% 0px -40% 0px"});$$(".stp").forEach(function(s){so.observe(s)});
+var L=[["You","Why is shuttle lane B on hold?"],["Agent","A unit stopped in segment B2. I froze new entries and closed only B2."],["You","Is there a safe route around it?"],["Agent","Yes. Bypass B2-alt is clear. Proposing 4 units via the bypass. Approve?"],["You","Approve."],["Agent","Done. B2 stays closed until a tow and clearance check are verified."]],i=0,ch=$("#chat"),run=false;
+function step(){if(i>=L.length){setTimeout(function(){i=0;ch.innerHTML="";step()},4000);return}var p=document.createElement("p");p.innerHTML="<b style='color:"+(L[i][0]=="You"?"#f2a900":"#2bb5a0")+"'>"+L[i][0]+":</b> "+L[i][1];ch.appendChild(p);i++;setTimeout(step,2200)}
+new IntersectionObserver(function(e){if(e[0].isIntersecting&&!run){run=true;step()}},{threshold:.4}).observe(ch);
+</script></body></html>
